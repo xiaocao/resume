@@ -9,13 +9,13 @@
 ###################################################
 
 PDFEXE    = pdflatex --shell-escape
-DVIEXE    = latex --shell-escape
 BIBEXE    = bibtex
 PDFTEST   = mupdf
-DVITEST   = dvi2tty
 
 TEXSRC    = cv.tex
 BIBSRC    = bibliography.bib
+SVGSRC    = $(shell /bin/ls --color=none \
+	    | /bin/grep --color=none ".svg")
 
 OUTFILE   = ${TEXSRC:.tex=.pdf}
 ENDFILE   = amlesh_resume.pdf
@@ -39,31 +39,20 @@ ${OUTFILE}: ${TEXSRC} ${BIBSRC}
 	-${PDFEXE} ${TEXSRC}
 	mv ${OUTFILE} ${ENDFILE}
 
-${OUTFILE:.pdf=.dvi}: ${TEXSRC} ${BIBSRC}
-	-${DVIEXE} ${TEXSRC}
-	-${BIBEXE} ${TEXSRC:.tex=.aux}
-	-${DVIEXE} ${TEXSRC}
-	-${DVIEXE} ${TEXSRC}
-	mv ${OUTFILE:.pdf=.dvi} ${ENDFILE:.pdf=.dvi}
-
-dvi: ${OUTFILE:.pdf=.dvi}
-	-${DVITEST} ${ENDFILE:.pdf=.dvi}
-
 pdf: ${OUTFILE}
 	-${PDFTEST} ${ENDFILE}
-
 
 refresh: spotless pdf
 
 clean:
+	-rm ${SVGSRC:.svg=.pdf}
+	-rm ${SVGSRC:.svg=.pdf_tex}
 	-rm -fv ${MISCFILE}
 	-rm -rfv _minted*/
 
 spotless: clean 
 	-rm ${OUTFILE}
-	-rm ${OUTFILE:.pdf=.dvi}
-	-rm ${ENDFILE}
-	-rm ${ENDFILE:.pdf=.dvi}
+#	-rm ${ENDFILE}
 
 ci: spotless
 	git add .
