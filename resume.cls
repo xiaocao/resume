@@ -56,3 +56,8 @@
 		\svgraised{github} #5
 	\end{center}
 }
+
+% Create some special sections now
+\newcommand{\svgsection}[2]{
+	\section{\protect\includesvg{#1}#2}
+}
