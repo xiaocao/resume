@@ -10,6 +10,10 @@
 % Set the margins
 \usepackage[margin=0.5in]{geometry}
 
+% We also want to use svgs
+\usepackage[]{svg}
+\usepackage{amsmath}
+
 % Customize the section heading
 \titleformat{\section}
 	{\Large\scshape\raggedright} % Customize the size fo the section command
@@ -37,8 +41,14 @@
 }
 \newcommand{\contact}[5]{
 	\begin{center}
-		#1 {\large\textperiodcentered} 
-		#2 {\large\textperiodcentered}
-		#3 {\Large} #4 {\Large} #5
+		\includesvg{address} #1 
+		\\
+		\includesvg{email} #2 
+		{\LARGE\textperiodcentered} 
+		\includesvg{email} #3 
+		{\LARGE\textperiodcentered} 
+		\includesvg{phone} #4 
+		{\LARGE\textperiodcentered} 
+		\includesvg{github} #5
 	\end{center}
 }
