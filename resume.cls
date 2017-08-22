@@ -39,16 +39,20 @@
 \newcommand{\name}[1]{
 	\centerline{\Huge{#1}}
 }
+\newcommand{\svgraised}[1]{
+	\raisebox{-3pt}{\includesvg{#1}}
+}
+
 \newcommand{\contact}[5]{
 	\begin{center}
-		\includesvg{address} #1 
+		\svgraised{address} #1 
 		\\
-		\includesvg{email} #2 
+		\svgraised{email} #2 
 		{\LARGE\textperiodcentered} 
-		\includesvg{email} #3 
+		\svgraised{email} #3 
 		{\LARGE\textperiodcentered} 
-		\includesvg{phone} #4 
+		\svgraised{phone} #4 
 		{\LARGE\textperiodcentered} 
-		\includesvg{github} #5
+		\svgraised{github} #5
 	\end{center}
 }
