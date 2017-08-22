@@ -52,7 +52,7 @@ clean:
 
 spotless: clean 
 	-rm ${OUTFILE}
-#	-rm ${ENDFILE}
+	-mv ${ENDFILE} docs/
 
 ci: spotless
 	git add .
