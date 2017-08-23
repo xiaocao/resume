@@ -23,6 +23,9 @@
     urlcolor=blue,
 }
 
+% Turn off page numbering
+\pagenumbering{gobble}
+
 % Customize the section heading
 \titleformat{\section}
 	{\Large\scshape\raggedright} % Customize the size fo the section command
