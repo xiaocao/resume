@@ -14,6 +14,15 @@
 \usepackage[]{svg}
 \usepackage{amsmath}
 
+% We also to use hyperlinks to projects.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
 % Customize the section heading
 \titleformat{\section}
 	{\Large\scshape\raggedright} % Customize the size fo the section command
@@ -43,7 +52,7 @@
 	\raisebox{-3pt}{\includesvg{#1}}
 }
 
-\newcommand{\contact}[5]{
+\newcommand{\contact}[6]{
 	\begin{center}
 		\svgraised{address} #1 
 		\\
@@ -53,7 +62,7 @@
 		{\LARGE\textperiodcentered} 
 		\svgraised{phone} #4 
 		{\LARGE\textperiodcentered} 
-		\svgraised{github} #5
+		\svgraised{github} \href{#6}{#5}
 	\end{center}
 }
 
