@@ -20,6 +20,8 @@ SVGSRC    = $(shell /bin/ls --color=none \
 OUTFILE   = ${TEXSRC:.tex=.pdf}
 ENDFILE   = amlesh_resume.pdf
 
+OCTICON	  = ./.svg/logo-github.svg
+
 MISCFILE  = ${TEXSRC:.tex=.aux} \
 	    ${TEXSRC:.tex=.log} \
 	    ${TEXSRC:.tex=.dvi} \
@@ -32,12 +34,15 @@ MAKEARGS  = --no-print-directory -C
 
 ####################################################
 
-${OUTFILE}: ${TEXSRC} ${BIBSRC}
+${OUTFILE}: ${TEXSRC} ${BIBSRC} ${OCTICON}
 	-${PDFEXE} ${TEXSRC}
 	-${BIBEXE} ${TEXSRC:.tex=.aux}
 	-${PDFEXE} ${TEXSRC}
 	-${PDFEXE} ${TEXSRC}
 	mv ${OUTFILE} ${ENDFILE}
+
+${OCTICON}:
+	bash get_octicons
 
 pdf: ${OUTFILE}
 	-${PDFTEST} ${ENDFILE}
@@ -53,6 +58,9 @@ clean:
 spotless: clean 
 	-rm ${OUTFILE}
 	-mv ${ENDFILE} docs/
+
+super-spotless: spotless
+	-rm -r .svg/
 
 ci: spotless
 	git add .

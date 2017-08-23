@@ -70,3 +70,23 @@
 \newcommand{\svgsection}[2]{
 	\section{\protect\includesvg{#1}#2}
 }
+
+% Make another special section for skilss
+\newcommand{\skillsubsection}[2]{
+	\subsection[#1]{#1: {\normalfont\normalsize#2}}
+}
+
+% A special section for projects.
+\newcommand{\projectsubsection}[3]{
+	\subsection[#1]{#1
+		- ({\normalfont\normalsize\textit{#2}}) -
+		{\normalfont\normalsize#3}
+	}
+}
+
+% A special sectino for jobs/experience
+\newcommand{\jobsubsection}[4]{
+	\subsection[#1]{#1 \hfill #2
+		\\ {\normalfont\normalsize\textit{#3}\\#4}
+	}
+}
