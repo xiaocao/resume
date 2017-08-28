@@ -35,17 +35,17 @@ MAKEARGS  = --no-print-directory -C
 ####################################################
 
 ${OUTFILE}: ${TEXSRC} ${BIBSRC} ${OCTICON}
-	-${PDFEXE} ${TEXSRC}
+	${PDFEXE} ${TEXSRC}
 	-${BIBEXE} ${TEXSRC:.tex=.aux}
-	-${PDFEXE} ${TEXSRC}
-	-${PDFEXE} ${TEXSRC}
+	${PDFEXE} ${TEXSRC}
+	${PDFEXE} ${TEXSRC}
 	mv ${OUTFILE} ${ENDFILE}
 
 ${OCTICON}:
 	bash get_octicons
 
 pdf: ${OUTFILE}
-	-${PDFTEST} ${ENDFILE}
+	${PDFTEST} ${ENDFILE}
 
 refresh: spotless pdf
 
@@ -54,6 +54,7 @@ clean:
 	-rm ${SVGSRC:.svg=.pdf_tex}
 	-rm -fv ${MISCFILE}
 	-rm -rfv _minted*/
+	-rm -rfv svg-inkscape/
 
 spotless: clean 
 	-rm ${OUTFILE}
