@@ -10,8 +10,9 @@
 % Set the margins
 \usepackage[margin=0.5in]{geometry}
 
-% We also want to use svgs
-\usepackage[]{svg}
+% We also to use images
+\usepackage[]{graphicx}
+\graphicspath{{icons/}}
 \usepackage{amsmath}
 
 % We also to use hyperlinks to projects.
@@ -19,7 +20,7 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=cyan,
-    filecolor=magenta,      
+    filecolor=magenta,
     urlcolor=blue,
 }
 
@@ -51,27 +52,27 @@
 \newcommand{\name}[1]{
 	\centerline{\Huge{#1}}
 }
-\newcommand{\svgraised}[1]{
-	\raisebox{-3pt}{\includesvg{#1}}
+\newcommand{\imgraised}[1]{
+	\raisebox{-3pt}{\includegraphics{#1}}
 }
 
 \newcommand{\contact}[6]{
 	\begin{center}
-		\svgraised{address} #1 
+		\imgraised{address} #1
 		\\
-		\svgraised{email} #2 
-		{\LARGE\textperiodcentered} 
-		\svgraised{email} #3 
-		{\LARGE\textperiodcentered} 
-		\svgraised{phone} #4 
-		{\LARGE\textperiodcentered} 
-		\svgraised{github} \href{#6}{#5}
+		\imgraised{email} #2
+		{\LARGE\textperiodcentered}
+		\imgraised{email} #3
+		{\LARGE\textperiodcentered}
+		\imgraised{phone} #4
+		{\LARGE\textperiodcentered}
+		\imgraised{github} \href{#6}{#5}
 	\end{center}
 }
 
 % Create some special sections now
-\newcommand{\svgsection}[2]{
-	\section{\protect\includesvg{#1}#2}
+\newcommand{\imgsection}[2]{
+	\section{\protect\includegraphics{#1}#2}
 }
 
 % Make another special section for skilss

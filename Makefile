@@ -14,8 +14,6 @@ PDFTEST   = mupdf
 
 TEXSRC    = cv.tex
 BIBSRC    = bibliography.bib
-SVGSRC    = $(shell /bin/ls --color=none \
-	    | /bin/grep --color=none ".svg")
 
 OUTFILE   = ${TEXSRC:.tex=.pdf}
 ENDFILE   = amlesh_resume.pdf
@@ -33,10 +31,10 @@ MAKEARGS  = --no-print-directory -C
 ####################################################
 
 ${OUTFILE}: ${TEXSRC} ${BIBSRC} 
-	${PDFEXE} ${TEXSRC}
+	-${PDFEXE} ${TEXSRC}
 	-${BIBEXE} ${TEXSRC:.tex=.aux}
-	${PDFEXE} ${TEXSRC}
-	${PDFEXE} ${TEXSRC}
+	-${PDFEXE} ${TEXSRC}
+	-${PDFEXE} ${TEXSRC}
 	mv ${OUTFILE} ${ENDFILE}
 
 octicons:
@@ -48,19 +46,13 @@ pdf: ${OUTFILE}
 refresh: spotless pdf
 
 clean:
-	-rm ${SVGSRC:.svg=.pdf}
-	-rm ${SVGSRC:.svg=.pdf_tex}
 	-rm -fv ${MISCFILE}
 	-rm -rfv _minted*/
-	-rm -rfv svg-inkscape/
 	-rm -rf .svg/
 
 spotless: clean 
 	-rm ${OUTFILE}
 	-mv ${ENDFILE} docs/
-
-super-spotless: spotless
-	-rm -r .svg/
 
 ci: spotless
 	git add .
