@@ -72,7 +72,7 @@
 
 % Create some special sections now
 \newcommand{\imgsection}[2]{
-	\section{\protect\includegraphics{#1}#2}
+	\section{\protect\includegraphics{#1}\hspace{3mm}#2}
 }
 
 % Make another special section for skilss
