@@ -87,18 +87,18 @@
 }
 
 % A sub-section for recent projects
-\newcommand{\projectsubsection}[3]{
+\newcommand{\projectsubsection}[4]{
     \pagebreak[1] % This tells latex that if we need to, break page
-	\subsection[#1]{#1
+	\subsection[#1]{\href{#4}{#1}
 		- ({\normalfont\normalsize\textit{#2}}) -
 		{\normalfont\normalsize#3}
 	}
 }
 
 % A sub-section for project entires that are old.
-\newcommand{\projectsubsectionold}[3]{
+\newcommand{\projectsubsectionold}[4]{
     \ifthenelse{\equal{\fullresume}{true}}{
-        \projectsubsection{#1}{#2}{#3}
+        \projectsubsection{#1}{#2}{#3}{#4}
     }{}
 }
 
