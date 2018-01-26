@@ -1,10 +1,10 @@
 
-# __  __       _         __ _ _      
-#|  \/  | __ _| | _____ / _(_) | ___ 
+# __  __       _         __ _ _
+#|  \/  | __ _| | _____ / _(_) | ___
 #| |\/| |/ _` | |/ / _ \ |_| | |/ _ \
 #| |  | | (_| |   <  __/  _| | |  __/
 #|_|  |_|\__,_|_|\_\___|_| |_|_|\___|
-#                                    
+#
 
 ###################################################
 
@@ -12,48 +12,62 @@ PDFEXE    = pdflatex --shell-escape
 BIBEXE    = bibtex
 PDFTEST   = mupdf
 
-TEXSRC    = cv.tex
+MINSRC    = cv.tex
+MAXSRC	  = '\providecommand{\fullresume{true}}\input{${MINSRC}}'
 BIBSRC    = bibliography.bib
 
-OUTFILE   = ${TEXSRC:.tex=.pdf}
-ENDFILE   = amlesh_resume.pdf
+MINFILE   = amlesh_resume.pdf
+MAXFILE   = amlesh_resume_full.pdf
 
-MISCFILE  = ${TEXSRC:.tex=.aux} \
-	    ${TEXSRC:.tex=.log} \
-	    ${TEXSRC:.tex=.dvi} \
-	    ${TEXSRC:.tex=.out} \
-	    ${TEXSRC:.tex=.bbl} \
-	    ${TEXSRC:.tex=.blg} \
-	    ${TEXSRC:.tex=.toc} \
+MISCFILE  = ${MINSRC:.tex=.aux} \
+	    ${MINSRC:.tex=.log} \
+	    ${MINSRC:.tex=.dvi} \
+	    ${MINSRC:.tex=.out} \
+	    ${MINSRC:.tex=.bbl} \
+	    ${MINSRC:.tex=.blg} \
+	    ${MINSRC:.tex=.toc} \
 
 MAKEARGS  = --no-print-directory -C
 
 ####################################################
 
-${OUTFILE}: ${TEXSRC} ${BIBSRC} 
-	-${PDFEXE} ${TEXSRC}
-	-${BIBEXE} ${TEXSRC:.tex=.aux}
-	-${PDFEXE} ${TEXSRC}
-	-${PDFEXE} ${TEXSRC}
-	mv ${OUTFILE} ${ENDFILE}
+# Build both versions of the resume and view them.
+pdf: single-page full
+	${PDFTEST} ${MINFILE}
+	${PDFTEST} ${MAXFILE}
 
-octicons:
-	bash get_octicons
+# Build instructions for the single page resume
+single-page: ${MINSRC} ${BIBSRC}
+#	-${PDFEXE} ${MINSRC}
+#	-${BIBEXE} ${MINSRC:.tex=.aux}
+#	-${PDFEXE} ${MINSRC}
+	-${PDFEXE} ${MINSRC}
+	mv ${MINSRC:.tex=.pdf} ${MINFILE}
 
-pdf: ${OUTFILE}
-	${PDFTEST} ${ENDFILE}
+# Build instructions for the full resume
+full: ${MINSRC} ${BIBSRC}
+#	-${PDFEXE} ${MAXSRC}
+#	-${BIBEXE} ${MAXSRC:.tex=.aux}
+#	-${PDFEXE} ${MAXSRC}
+	-${PDFEXE} ${MAXSRC}
+	mv ${MINSRC:.tex=.pdf} ${MAXFILE}
 
-refresh: spotless pdf
-
+# Clean the build directory
 clean:
 	-rm -fv ${MISCFILE}
 	-rm -rfv _minted*/
 	-rm -rf .svg/
 
-spotless: clean 
-	-rm ${OUTFILE}
-	-mv ${ENDFILE} docs/
+# clean the directory and move the pdfs into the docs directory
+spotless: clean
+	-rm ${MINSRC:.tex=.pdf}
+	-mv ${MINFILE} docs/
+	-mv ${MAXFILE} docs/
 
+# spotless + pdf...
+refresh: spotless pdf
+
+# Run spotless, but also check in changes with git
 ci: spotless
 	git add .
 	git commit -e

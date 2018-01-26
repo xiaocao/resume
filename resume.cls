@@ -6,6 +6,8 @@
 
 % Customize the section headers
 \RequirePackage{titlesec}
+\RequirePackage{ifthen}
+\providecommand\fullresume{false}
 
 % Set the margins
 \usepackage[margin=0.5in]{geometry}
@@ -52,10 +54,12 @@
 \newcommand{\name}[1]{
 	\centerline{\Huge{#1}}
 }
+% Special command for positioning the image correctly
 \newcommand{\imgraised}[1]{
 	\raisebox{-3pt}{\includegraphics{#1}}
 }
 
+% Generate the contact details
 \newcommand{\contact}[6]{
 	\begin{center}
 		\imgraised{address} #1
@@ -70,27 +74,45 @@
 	\end{center}
 }
 
-% Create some special sections now
+% Create some special image sections now
 \newcommand{\imgsection}[2]{
+    \pagebreak[1] % This tells latex that if we need to, break page
 	\section{\protect\includegraphics{#1}\hspace{3mm}#2}
 }
 
 % Make another special section for skilss
 \newcommand{\skillsubsection}[2]{
+    \pagebreak[1] % This tells latex that if we need to, break page
 	\subsection[#1]{#1: {\normalfont\normalsize#2}}
 }
 
-% A special section for projects.
+% A sub-section for recent projects
 \newcommand{\projectsubsection}[3]{
+    \pagebreak[1] % This tells latex that if we need to, break page
 	\subsection[#1]{#1
 		- ({\normalfont\normalsize\textit{#2}}) -
 		{\normalfont\normalsize#3}
 	}
 }
 
-% A special sectino for jobs/experience
+% A sub-section for project entires that are old.
+\newcommand{\projectsubsectionold}[3]{
+    \ifthenelse{\equal{\fullresume}{true}}{
+        \projectsubsection{#1}{#2}{#3}
+    }{}
+}
+
+% A sub-section for recent jobs/experience
 \newcommand{\jobsubsection}[4]{
+    \pagebreak[1] % This tells latex that if we need to, break page
 	\subsection[#1]{#1 \hfill #2
 		\\ {\normalfont\normalsize\textit{#3}\\#4}
 	}
+}
+
+% The sub-section for job/experience entries that are old.
+\newcommand{\jobsubsectionold}[4]{
+    \ifthenelse{\equal{\fullresume}{true}}{
+        \jobsubsection{#1}{#2}{#3}{#4}
+    }{}
 }
