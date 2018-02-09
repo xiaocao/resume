@@ -66,8 +66,8 @@
 		\\
 		\imgraised{email} #2
 		{\LARGE\textperiodcentered}
-		\imgraised{email} #3
-		{\LARGE\textperiodcentered}
+		%\imgraised{email} #3
+		%{\LARGE\textperiodcentered}
 		\imgraised{phone} #4
 		{\LARGE\textperiodcentered}
 		\imgraised{github} \href{#6}{#5}
